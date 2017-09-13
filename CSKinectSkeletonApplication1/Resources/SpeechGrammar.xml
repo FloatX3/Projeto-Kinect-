@@ -4,8 +4,8 @@
       <item>
         <tag>START</tag>
         <one-of>
-          <item>world tour</item>
-          
+          <item>start</item>
+          <item>start game</item>
         </one-of>
       </item>
     </one-of>

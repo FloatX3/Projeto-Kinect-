@@ -28,7 +28,51 @@ namespace CSKinectSkeletonApplication1
         int mouseY = 384;
         bool modoSVR = false;
         bool verificaC = false;
-        
+
+
+        internal enum ScanCodeShort : short
+        {
+            KEY_ESC = 0x1B,
+            KEY_0,
+            KEY_1,
+            KEY_2,
+            KEY_3,
+            KEY_4,
+            KEY_5,
+            KEY_6,
+            KEY_7,
+            KEY_8,
+            KEY_9,
+            KEY_A,
+            KEY_B,
+            KEY_C,
+            KEY_D,
+            KEY_E = 0x45,
+            KEY_F,
+            KEY_G,
+            KEY_H,
+            KEY_I,
+            KEY_J,
+            KEY_K,
+            KEY_L,
+            KEY_M,
+            KEY_N,
+            KEY_O,
+            KEY_P,
+            KEY_Q,
+            KEY_R,
+            KEY_S,
+            KEY_T,
+            KEY_U,
+            KEY_V,
+            KEY_W = 0x57,
+            KEY_X,
+            KEY_Y,
+            KEY_Z,
+            VK_SHIFT = 0x10,
+            VK_SPACE = 0X20
+
+        }
 
         /// <summary>
         /// Speech grammar used during game play.
@@ -67,6 +111,7 @@ namespace CSKinectSkeletonApplication1
 
         }
 
+        #region importação de dll para funcionamento do mouse e teclado
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName,
             string lpWindowName);
@@ -84,49 +129,7 @@ namespace CSKinectSkeletonApplication1
         const int VK_SHIFT = 0x10;
         const int VK_SPACE = 0X20;
 
-        internal enum ScanCodeShort : short
-        {
-
-            KEY_0,
-            KEY_1,
-            KEY_2,
-            KEY_3,
-            KEY_4,
-            KEY_5,
-            KEY_6,
-            KEY_7,
-            KEY_8,
-            KEY_9,
-            KEY_A,
-            KEY_B,
-            KEY_C,
-            KEY_D,
-            KEY_E,
-            KEY_F,
-            KEY_G,
-            KEY_H,
-            KEY_I,
-            KEY_J,
-            KEY_K,
-            KEY_L,
-            KEY_M,
-            KEY_N,
-            KEY_O,
-            KEY_P,
-            KEY_Q,
-            KEY_R,
-            KEY_S,
-            KEY_T,
-            KEY_U,
-            KEY_V,
-            KEY_W = 0x57,
-            KEY_X,
-            KEY_Y,
-            KEY_Z,
-            VK_SHIFT = 0x10,
-            VK_SPACE = 0X20
-
-        }
+       
 
 
 
@@ -158,6 +161,7 @@ namespace CSKinectSkeletonApplication1
 
         }
 
+        #endregion
 
         // É importante que o kinect esteja conectado, porque ele só verifica se ele tem energia ou não. 
         // E quando ele verifica ele alerta com uma MessageBox.
@@ -189,6 +193,7 @@ namespace CSKinectSkeletonApplication1
             
 
         }
+
         private void InitializeSensor(KinectSensor sensor)
         {
             if (null == sensor)
@@ -214,6 +219,7 @@ namespace CSKinectSkeletonApplication1
 
         void runtime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
+            
             bool receivedData = false;
 
             using (SkeletonFrame SFrame = e.OpenSkeletonFrame())
@@ -248,7 +254,7 @@ namespace CSKinectSkeletonApplication1
                     SetEllipsePosition(rightLeg, currentSkeleton.Joints[JointType.KneeRight]);
                     SetEllipsePosition(hipcenter, currentSkeleton.Joints[JointType.HipCenter]);
 
-
+                    #region Pegar os eixos das juntas (mãos, joelhos, cintura e cabeça)
                     // essa parte aqui embaixo elas capturam e mostram a posição XYZ da cabeça, mão esquerda e mão direita
                     // agora eu coloquei duas elipses nas pernas também, joelhos de preferencia
                     // o statusText são do xaml com o nome alterado para cada um dos membros
@@ -267,7 +273,7 @@ namespace CSKinectSkeletonApplication1
                     Joint rhand = currentSkeleton.Joints[JointType.HandRight];
                     SkeletonPoint rhPosition = rhand.Position;
 
-                    string rmen = string.Format("Mão Direita: X:{0:0.00} Y:{1:0.00} Z:{2:0.0000}",
+                    string rmen = string.Format("Mão Direita: X:{0:0.0000} Y:{1:0.0000} Z:{2:0.0000}",
                          rhPosition.X, rhPosition.Y, rhPosition.Z);
 
                     statustextRH.Text = rmen;
@@ -309,10 +315,9 @@ namespace CSKinectSkeletonApplication1
                     statustextHC.Text = HCmen;
 
                     // fim da captura
+                    #endregion
 
-                    //aqui vou começar os testes de controle, não se perca heim!!
-
-
+                    #region testes do modo sem o VR
                     //SetCursorPos(mouseX += hPosition.X, mouseY += hPosition.Y);
                     //essa parte aqui é para testar a movimentação da camera sem o óculos
 
@@ -349,8 +354,10 @@ namespace CSKinectSkeletonApplication1
 
 
                     }
-                    
-                    //posição Y do Braço direito seria de baixo pra cima :)
+
+                    #endregion
+
+                    #region detectar movimento dos braços
                     if (rhPosition.Y > 0f && verificaRH)
                     {
                         verificaRH = false;
@@ -358,7 +365,7 @@ namespace CSKinectSkeletonApplication1
                         if (rhPosition.Z < 1.20f)
                         {
                             moveu1.Text = "Clique";
-                            
+
                             mouse_event((uint)MouseEventFlags.LEFTDOWN, 0, 0, 0, UIntPtr.Zero);
 
                         }
@@ -391,9 +398,9 @@ namespace CSKinectSkeletonApplication1
 
                     }
                     // fim da verificação das duas mãos
+                    #endregion
 
-
-
+                    #region movimento das pernas
                     //movimento das pernas aqui, representadas pelas variaveis RlPosition e LlPosition
                     //o verificaAndando já é auto explicativo, e é uma variavel global
                     if (RlPosition.Y >= minYJ && RlPosition.Y <= maxYJ && !verificaAndando || LlPosition.Y >= minYJ && LlPosition.Y <= maxYJ && !verificaAndando)
@@ -407,6 +414,9 @@ namespace CSKinectSkeletonApplication1
                         keybd_event((byte)ScanCodeShort.KEY_W, 0x45, KEYEVENTF_KEYUP, 0);
                         verificaAndando = false;
                     }
+                    #endregion
+
+                    #region comentarios para fazer o pulo
                     //if (HCPosition.Y > -0.52 && jhead.Position.Y > 0)
                     //{
                     //    keybd_event((byte)ScanCodeShort.VK_SPACE, 0x45, 0, 0);
@@ -420,7 +430,10 @@ namespace CSKinectSkeletonApplication1
                     //    keybd_event((byte)ScanCodeShort.VK_SHIFT, 0x45, KEYEVENTF_KEYUP, 0);
                     //    keybd_event((byte)ScanCodeShort.VK_SPACE, 0x45, KEYEVENTF_KEYUP, 0);
                     //}   
+                    #endregion
                 }
+
+                    // aqui fica a parte que se o esqueleto não for detectado, as teclas param de ser pressionadas
                 else
                 {
                     if (verificaC == true) 
@@ -440,13 +453,12 @@ namespace CSKinectSkeletonApplication1
             }
         }
 
+        #region voice reconigtion
         private void SpeechRecognized(object sender, SpeechRecognizerEventArgs e)
         {
             // Semantic value associated with speech commands meant to start a new game.
-            const string Comandodevoz = "START";
-
-            
-            
+            const string abririnventario = "start";
+            const string fazertour = "tour";
 
             if (null == e.SemanticValue)
             {
@@ -456,9 +468,15 @@ namespace CSKinectSkeletonApplication1
             // Handle game mode control commands
             switch (e.SemanticValue)
             {
-                case Comandodevoz:
-                    RespostaBox.Text = "Reconhecido";
+                case abririnventario:
+                    keybd_event((byte)ScanCodeShort.KEY_E, 0x45, 0, 0);
+                    keybd_event((byte)ScanCodeShort.KEY_E, 0x45, KEYEVENTF_KEYUP, 0);
+                    RespostaBox.Text = "reconhecido";
                     return;
+                case fazertour:
+
+                    return;
+
 
                 
             }
@@ -466,13 +484,13 @@ namespace CSKinectSkeletonApplication1
             
            
         }
+        #endregion
 
-        
         private void SetEllipsePosition(Ellipse ellipse, Joint joint)
         {
             Microsoft.Kinect.SkeletonPoint vector = new Microsoft.Kinect.SkeletonPoint();
-            vector.X = ScaleVector(640, joint.Position.X);
-            vector.Y = ScaleVector(480, -joint.Position.Y);
+            vector.X = ScaleVector(500, joint.Position.X);
+            vector.Y = ScaleVector(500, -joint.Position.Y);
             vector.Z = joint.Position.Z;
 
             Joint updatedJoint = new Joint();
