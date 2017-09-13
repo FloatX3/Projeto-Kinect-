@@ -1,0 +1,12 @@
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\bin\Debug\CSKinectSkeletonApplication1.exe
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\bin\Debug\CSKinectSkeletonApplication1.pdb
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\MainWindow.baml
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\MainWindow.g.cs
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\App.g.cs
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\CSKinectSkeletonApplication1_MarkupCompile.cache
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\CSKinectSkeletonApplication1.g.resources
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\CSKinectSkeletonApplication1.Properties.Resources.resources
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\AplicacaoKinect.csproj.GenerateResource.Cache
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\CSKinectSkeletonApplication1.exe
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\CSKinectSkeletonApplication1.pdb
+C:\Users\FLAVIOHENRIQUEMOREIR\Documents\Visual Studio 2012\Projects\CSKinectSkeletonApplication1\CSKinectSkeletonApplication1\obj\x86\Debug\AplicacaoKinect.csprojResolveAssemblyReference.cache
